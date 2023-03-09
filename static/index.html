@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Habit Driven Demo</title>
+</head>
+
+<body>
+    <h1>Habit Driven Demo</h1>
+    <form onsubmit="event.preventDefault(); askBot()">
+        <label for="query">Enter your query:</label>
+        <input type="text" id="query" name="query"><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="response"></div>
+    <script>
+        function askBot() {
+            var query = document.getElementById("query").value;
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    var response = JSON.parse(this.responseText);
+                    document.getElementById("response").innerHTML = response.response;
+                    if (response.clearInput) {
+                        document.getElementById("query").value = "";  // Clear input field
+                    }
+                }
+            };
+            xhr.open("POST", "/ask-bot");
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.send(JSON.stringify({ query: query, input_index: "index.json" }));
+        }
