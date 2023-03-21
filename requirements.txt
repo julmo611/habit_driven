@@ -32,7 +32,7 @@ marshmallow-enum==1.5.1
 multidict==6.0.4
 mypy-extensions==1.0.0
 numpy==1.24.2
-openai==0.10.2
+openai==0.27.0
 packaging==23.0
 pandas==1.5.3
 pycryptodomex==3.17
